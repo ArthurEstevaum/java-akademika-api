@@ -1,5 +1,7 @@
 package com.estevaum.akademikaapi.controllers.IAkademika;
 
+import com.estevaum.akademikaapi.DTOs.PromptRequestDTO;
+import com.estevaum.akademikaapi.outputs.PromptResponse;
 import com.estevaum.akademikaapi.services.iakademika.PromptProcessor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,9 +18,9 @@ public class PromptController {
     }
 
     @PostMapping("/prompt/process")
-    public ResponseEntity<String> getPromptResponse(@RequestBody String prompt) {
-        String promptResponse = promptProcessor.getPromptResponse(prompt);
+    public ResponseEntity<PromptRequestDTO> getPromptResponse(@RequestBody String prompt) {
+        PromptResponse promptResponse = promptProcessor.getPromptResponse(prompt);
 
-        return ResponseEntity.ok(promptResponse);
+        return ResponseEntity.ok(new PromptRequestDTO(promptResponse.promptResponse()));
     }
 }

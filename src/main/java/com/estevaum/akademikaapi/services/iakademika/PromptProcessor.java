@@ -1,5 +1,7 @@
 package com.estevaum.akademikaapi.services.iakademika;
 
+import com.estevaum.akademikaapi.outputs.PromptResponse;
+
 public interface PromptProcessor {
-    public String getPromptResponse(String prompt);
+    public PromptResponse getPromptResponse(String prompt);
 }

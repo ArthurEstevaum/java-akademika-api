@@ -34,9 +34,10 @@ public class AuthenticationController {
     }
 
     @PostMapping(value = "/register")
-    public ResponseEntity<User> register(@RequestBody @Valid RegisterUserRequestDTO requestData) {
+    public ResponseEntity<LoginResponseDTO> register(@RequestBody @Valid RegisterUserRequestDTO requestData) throws Exception {
         User user = registerService.register(requestData);
+        String accessToken = authService.createAccessToken(requestData.email(), requestData.password());
 
-        return ResponseEntity.ok(user);
+        return ResponseEntity.ok(new LoginResponseDTO(accessToken, requestData.email()));
     }
 }

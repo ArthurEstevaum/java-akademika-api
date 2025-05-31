@@ -1,6 +1,7 @@
 package com.estevaum.akademikaapi.services.iakademika;
 
 import com.estevaum.akademikaapi.enums.Difficulty;
+import com.estevaum.akademikaapi.outputs.PromptResponse;
 import com.estevaum.akademikaapi.outputs.Quiz.Quiz;
 import com.estevaum.akademikaapi.outputs.Summary.Summary;
 import org.springframework.ai.chat.client.ChatClient;
@@ -51,7 +52,7 @@ public class GeminiService implements QuizGenerator, SummaryGenerator, PromptPro
     }
 
     @Override
-    public String getPromptResponse(String prompt) {
-        return this.chatClient.prompt().user(u -> u.text(prompt)).call().content();
+    public PromptResponse getPromptResponse(String prompt) {
+        return this.chatClient.prompt().user(u -> u.text(prompt)).call().entity(PromptResponse.class);
     }
 }
