@@ -21,11 +21,12 @@ public class SubjectController {
     private final SubjectService subjectService;
 
     private final Function<Subject, SubjectResponseDTO>  subjectToResponseDTO = subject -> {
+
          return new SubjectResponseDTO(subject.getId(),
-                subject.getName(), subject.getQuarter(), subject.getStatus(),
-                subject.getSyllabus(), subject.getTeacher(),
-                subject.getDays().stream().map(Day::getDay).toList(),
-                subject.getDeadlines().stream().map(deadline -> new DeadlineDTO(deadline.getDate(), deadline.getName())).toList()
+                 subject.getName(), subject.getQuarter(), subject.getStatus(),
+                 subject.getSyllabus(), subject.getTeacher(),
+                 subject.getDays().stream().map(Day::getDay).toList(),
+                 subject.getDeadlines() == null? List.of() : subject.getDeadlines().stream().map(deadline -> new DeadlineDTO(deadline.getDate(), deadline.getName())).toList()
         );
     };
 

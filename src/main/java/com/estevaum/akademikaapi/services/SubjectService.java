@@ -33,14 +33,14 @@ public class SubjectService {
     public Subject createSubject(SubjectCreationDTO requestData, String userEmail) {
 
         User user = userRepository.findByEmail(userEmail).orElseThrow(() -> new NoSuchElementException("Nenhum usuário encontrado com este id"));
-        Subject subject = new Subject(user, requestData.subjectName(), requestData.status(), requestData.quarter(), requestData.teacher(), requestData.syllabus());
+        Subject subject = new Subject(user, requestData.name(), requestData.status(), requestData.quarter(), requestData.teacher(), requestData.syllabus());
 
         List<Day> dayList = dayRepository.findAll();
 
         Set<Day> subjectDays = dayList.stream().filter(day -> requestData.days().contains(day.getDay())).collect(Collectors.toSet());
         subject.setDays(subjectDays);
 
-        List<Deadline> deadlines = requestData.deadlines().stream().map(deadlineDTO -> new Deadline(deadlineDTO.deadlineName(), deadlineDTO.date(), subject)).toList();
+        List<Deadline> deadlines = requestData.deadlines().stream().map(deadlineDTO -> new Deadline(deadlineDTO.name(), deadlineDTO.date(), subject)).toList();
 
         subjectRepository.save(subject);
         deadlineRepository.saveAll(deadlines);
@@ -75,10 +75,11 @@ public class SubjectService {
 
         Set<Day> subjectDays = dayList.stream().filter(day -> requestData.days().contains(day.getDay())).collect(Collectors.toSet());
 
-        List<Deadline> deadlines = requestData.deadlines().stream().map(deadlineDTO -> new Deadline(deadlineDTO.deadlineName(), deadlineDTO.date(), subject)).toList();
+        List<Deadline> deadlines = requestData.deadlines().stream().map(deadlineDTO -> new Deadline(deadlineDTO.name(), deadlineDTO.date(), subject)).toList();
 
         subject.setDays(subjectDays);
-        subject.setName(requestData.subjectName());
+        subject.setName(requestData.name());
+        subject.setTeacher(requestData.teacher());
         subject.setStatus(requestData.status());
         deadlineRepository.saveAll(deadlines);
 

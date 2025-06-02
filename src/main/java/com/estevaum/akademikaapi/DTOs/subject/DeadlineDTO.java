@@ -5,5 +5,5 @@ import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDate;
 
-public record DeadlineDTO(@NotNull LocalDate date, @NotBlank String deadlineName) {
+public record DeadlineDTO(LocalDate date, String name) {
 }
