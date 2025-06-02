@@ -15,7 +15,6 @@ services:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       VERTEX_API_KEY: ${VERTEX_API_KEY}
-      SPRING_AI_VERTEX_AI_PROJECT_ID: "akademika-test"
       GOOGLE_APPLICATION_CREDENTIALS: /config/gcloud/adc.json
     networks:
       - app-network
