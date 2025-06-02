@@ -20,7 +20,7 @@ public class GeminiService implements QuizGenerator, SummaryGenerator, PromptPro
         String prompt = "Gere exercícios de dificuldade {difficulty} sobre o " +
                 "tópico {topic}, a resposta deve estar estruturada com as respostas, as questões, e a explicação de " +
                 "cada alternativa" +
-                "(da alternativa estar correta ou incorreta) para cada questão";
+                "(da alternativa estar correta ou incorreta) para cada questão" + "use caracteres que possam ser parseados na resposta json usando spring AI";
 
         return this.chatClient.prompt()
                 .user(u -> u.text(prompt).param("topic", topic).param("difficulty", difficulty)).call().entity(Quiz.class);
@@ -42,7 +42,7 @@ public class GeminiService implements QuizGenerator, SummaryGenerator, PromptPro
                 Certifique-se de que a linguagem seja clara, acessível e focada em ajudar um estudante a aprender e revisar o material de forma eficaz.
                 O assunto a ser resumido é: {topic}.
                 Caso seja possível/conveniente, sintetize esse guia para o tamanho: {size}
-                não use caracteres que possam dar problemas para um parsing, como '*'
+                use caracteres que possam ser parseados na resposta json usando spring AI
                 """;
 
         return this.chatClient.prompt()

@@ -1,9 +1,45 @@
 services:
-  postgres:
-    image: 'postgres:latest'
-    environment:
-      POSTGRES_DB: mydatabase
-      POSTGRES_PASSWORD: ${DB_PASSWORD:-secret}
-      POSTGRES_USER: ${DB_USER:-myuser}
+  app:
+    image: amazoncorretto:21
+    container_name: akademika_app
+    build:
+      context: .
+      dockerfile: Dockerfile
     ports:
-      - "5432:5432"
+      - "8080:8080"
+    environment:
+      APP_ENV: prod
+      APP_URL: "http://10.0.0.8:8080"
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD}
+      ADMIN_USERNAME: ${ADMIN_USERNAME}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      VERTEX_API_KEY: ${VERTEX_API_KEY}
+      GOOGLE_APPLICATION_CREDENTIALS: /config/gcloud/adc.json
+    networks:
+      - app-network
+    volumes:
+      - /home/cambada-server/.config/gcloud:/config/gcloud/adc.json:ro
+    depends_on:
+      - db
+
+  db:
+    image: postgres:15-alpine
+    container_name: postgres_db
+    ports:
+      - "5433:5432"
+    environment:
+      POSTGRES_DB: akademika_db
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    networks:
+      - app-network
+
+volumes:
+  db_data:
+    driver: local
+networks:
+  app-network:
+    driver: bridge
