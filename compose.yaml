@@ -20,7 +20,7 @@ services:
     networks:
       - app-network
     volumes:
-      - /home/cambada-server/.config/gcloud:/config/gcloud/adc.json:ro
+      - /home/cambada-server/.config/gcloud/application_default_credentials.json:/config/gcloud/adc.json:ro
     depends_on:
       - db
 
