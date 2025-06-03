@@ -26,7 +26,7 @@ services:
 
   db:
     image: postgres:15-alpine
-    container_name: postgres_db
+    container_name: postgres_akademika
     ports:
       - "5433:5432"
     environment:
