@@ -18,7 +18,7 @@ public class Day {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, name = "day_of_week")
     private Days day;
 
     @ManyToMany(mappedBy = "days")

@@ -20,13 +20,13 @@ services:
     networks:
       - app-network
     volumes:
-      - /home/cambada-server/.config/gcloud:/config/gcloud/adc.json:ro
+      - /home/cambada-server/.config/gcloud/application_default_credentials.json:/config/gcloud/adc.json:ro
     depends_on:
       - db
 
   db:
     image: postgres:15-alpine
-    container_name: postgres_db
+    container_name: postgres_akademika
     ports:
       - "5433:5432"
     environment:

@@ -1,0 +1,22 @@
+spring:
+  ai:
+    vertex:
+      ai:
+        gemini:
+          project-id: akademika-test
+          location: ${VERTEX_LOCATION:us-central1}
+          chat:
+            options:
+              model: ${VERTEX_API_MODEL:gemini-2.0-flash-lite}
+  profiles:
+    active: ${APP_ENV:dev}
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: ${APP_URL:http://localhost:8080}
+
+security:
+  keys:
+    public: classpath:app.pub
+    private: classpath:app.key
